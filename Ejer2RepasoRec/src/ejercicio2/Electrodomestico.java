@@ -59,7 +59,9 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 	}
 
 	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+		if (codigo > 0) {
+			this.codigo = codigo;
+		}
 	}
 
 	public double getPrecioBase() {
@@ -67,7 +69,9 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 	}
 
 	public void setPrecioBase(double precioBase) {
-		this.precioBase = precioBase;
+		if (precioBase > 0) {
+			this.precioBase = precioBase;
+		}
 	}
 
 	public Color getColor() {
@@ -91,7 +95,9 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 	}
 
 	public void setPeso(double peso) {
-		this.peso = peso;
+		if (peso > 0) {
+			this.peso = peso;
+		}
 	}
 
 	public boolean equals(Object o) {

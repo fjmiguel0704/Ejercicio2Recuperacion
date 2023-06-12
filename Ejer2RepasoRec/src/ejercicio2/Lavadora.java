@@ -27,7 +27,9 @@ public class Lavadora extends Electrodomestico {
 	}
 
 	public void setCarga(double carga) {
-		this.carga = carga;
+		if (carga > 0) {
+			this.carga = carga;
+		}
 	}
 
 	@Override
