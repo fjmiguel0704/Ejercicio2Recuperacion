@@ -29,7 +29,9 @@ public class Television extends Electrodomestico {
 	}
 
 	public void setResolucion(double resolucion) {
-		this.resolucion = resolucion;
+		if (resolucion > 0) {
+			this.resolucion = resolucion;
+		}
 	}
 
 	public boolean isTdt() {
