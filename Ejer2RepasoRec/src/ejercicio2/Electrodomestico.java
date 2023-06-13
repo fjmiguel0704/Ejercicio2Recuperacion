@@ -1,5 +1,7 @@
 package ejercicio2;
 
+import java.util.Objects;
+
 public class Electrodomestico implements Comparable<Electrodomestico> {
 	protected int codigo;
 	protected double precioBase = 100;
@@ -78,16 +80,16 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 		return color;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setColor(String color) {
+		comprobarColor(color);
 	}
 
 	public Consumo getConsumoEnergetico() {
 		return consumoEnergetico;
 	}
 
-	public void setConsumoEnergetico(Consumo consumoEnergetico) {
-		this.consumoEnergetico = consumoEnergetico;
+	public void setConsumoEnergetico(char consumoEnergetico) {
+		comprobarConsumoEnergetico(consumoEnergetico);
 	}
 
 	public double getPeso() {
@@ -100,6 +102,7 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 		}
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		boolean estado = false;
 		Electrodomestico elec = (Electrodomestico) o;
@@ -117,6 +120,11 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 		return result;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+	
 	private Consumo comprobarConsumoEnergetico(char letra) {
 		switch (letra) {
 		case 'A', 'B', 'C', 'D', 'E', 'F':
