@@ -1,5 +1,10 @@
 package ejercicio2;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
@@ -21,7 +26,7 @@ public class Main {
 	static LinkedHashSet<Electrodomestico> collection = new LinkedHashSet<Electrodomestico>();
 
 	public static void main(String[] args) {
-
+		leerFichero();
 		do {
 			menu();
 			opcion = read.nextInt();
@@ -44,6 +49,7 @@ public class Main {
 				eliminarElectrodomestico();
 				break;
 			case 5:
+				guardarFichero(collection);
 				break;
 			case 0:
 				System.out.println("Saliendo...");
@@ -53,6 +59,59 @@ public class Main {
 			}
 		} while (opcion != 0);
 
+	}
+
+	public static LinkedHashSet<Electrodomestico> leerFichero() {
+		try {
+			String linea = "";
+			String electr[];
+			Electrodomestico e;
+			Scanner sc = new Scanner(new FileReader("src\\ejercicio2\\Electrodomesticos.txt"));
+			while (sc.hasNextLine()) {
+				linea = sc.nextLine();
+				electr = linea.split(";");
+				if (electr[0].equals("Lavadora")) {
+					e = new Lavadora(Double.parseDouble(electr[7]), Integer.parseInt(electr[2]),
+							Double.parseDouble(electr[3]), electr[4], electr[5].charAt(0),
+							Double.parseDouble(electr[6]));
+				} else if (electr[0].equals("Television")) {
+					e = new Television(Double.parseDouble(electr[7]), Boolean.parseBoolean(electr[8]),
+							Integer.parseInt(electr[2]), Double.parseDouble(electr[3]), electr[4], electr[5].charAt(0),
+							Double.parseDouble(electr[6]));
+
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("No se ha encontrado el archivo");
+			System.out.println(e.getMessage());
+		}
+
+		return collection;
+	}
+
+	public static void guardarFichero(LinkedHashSet<Electrodomestico> collec) {
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("src\\ejercicio2\\Electrodomesticos.txt"));
+			for (Electrodomestico valores : collec) {
+				String cadena = valores.getCodigo() + ";" + valores.getPrecioBase() + ";" + valores.getColor() + ";"
+						+ valores.getConsumoEnergetico() + ";" + valores.getPeso() + ";";
+
+				if (valores instanceof Lavadora) {
+					cadena = "Lavadora" + ";" + cadena + ((Lavadora) valores).getCarga();
+				} else if (valores instanceof Television) {
+					cadena = "Television" + ";" + cadena
+							+ (((Television) valores).getResolucion() + ";" + ((Television) valores).isTdt());
+				} else {
+					cadena = "Electrodomestico" + ";" + cadena;
+				}
+				bw.write(cadena);
+				bw.newLine();
+			}
+			bw.flush();
+		} catch (IOException e) {
+			System.out.println("No se encuentra el fichero");
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void eliminarElectrodomestico() {
