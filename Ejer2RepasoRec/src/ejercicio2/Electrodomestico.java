@@ -124,11 +124,12 @@ public class Electrodomestico implements Comparable<Electrodomestico> {
 	public int hashCode() {
 		return Objects.hash(codigo);
 	}
-	
+
 	private Consumo comprobarConsumoEnergetico(char letra) {
 		switch (letra) {
 		case 'A', 'B', 'C', 'D', 'E', 'F':
 			consumoEnergetico = Consumo.valueOf(String.valueOf(letra));
+			break;
 		default:
 			consumoEnergetico = Consumo.F;
 		}

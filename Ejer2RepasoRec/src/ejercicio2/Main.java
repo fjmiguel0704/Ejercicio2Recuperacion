@@ -65,21 +65,25 @@ public class Main {
 		try {
 			String linea = "";
 			String electr[];
-			Electrodomestico e;
+			Electrodomestico e = null;
 			Scanner sc = new Scanner(new FileReader("src\\ejercicio2\\Electrodomesticos.txt"));
 			while (sc.hasNextLine()) {
 				linea = sc.nextLine();
 				electr = linea.split(";");
 				if (electr[0].equals("Lavadora")) {
-					e = new Lavadora(Double.parseDouble(electr[7]), Integer.parseInt(electr[2]),
-							Double.parseDouble(electr[3]), electr[4], electr[5].charAt(0),
-							Double.parseDouble(electr[6]));
+					e = new Lavadora(Double.parseDouble(electr[6]), Integer.parseInt(electr[1]),
+							Double.parseDouble(electr[2]), electr[3], electr[4].charAt(0),
+							Double.parseDouble(electr[5]));
 				} else if (electr[0].equals("Television")) {
-					e = new Television(Double.parseDouble(electr[7]), Boolean.parseBoolean(electr[8]),
-							Integer.parseInt(electr[2]), Double.parseDouble(electr[3]), electr[4], electr[5].charAt(0),
-							Double.parseDouble(electr[6]));
+					e = new Television(Double.parseDouble(electr[6]), Boolean.parseBoolean(electr[7]),
+							Integer.parseInt(electr[1]), Double.parseDouble(electr[2]), electr[3], electr[4].charAt(0),
+							Double.parseDouble(electr[5]));
 
+				} else {
+					e = new Electrodomestico(Integer.parseInt(electr[1]), Double.parseDouble(electr[2]),
+							String.valueOf(electr[3]), electr[4].charAt(0), Double.parseDouble(electr[5]));
 				}
+				collection.add(e);
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("No se ha encontrado el archivo");
@@ -189,7 +193,9 @@ public class Main {
 						System.out.println("5. Resolución");
 						System.out.println("6. Sintonizador");
 						System.out.println();
-						System.out.println("Seleccione una opción");
+						System.out.println("Seleccione una opción: ");
+						opcion=read.nextInt();
+						read.nextLine();
 						switch (opcion) {
 						case 1:
 							System.out.println("Nuevo precio: ");
